@@ -1,1 +1,1 @@
-Teste técnico: Desenvolverdor PHP Full Stack Lravel/Angular
+Teste técnico: Desenvolverdor PHP Full Stack Laravel/Angular
