@@ -16,8 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('fase_id');
             $table->unsignedBigInteger('primeiro_time_id');
             $table->unsignedBigInteger('segundo_time_id');
-            $table->integer('resultado_primeiro_time');
-            $table->integer('resultado_segundo_time');    
+            $table->integer('resultado_primeiro_time')->nullable();
+            $table->integer('resultado_segundo_time')->nullable();    
             $table->timestamp('data_criacao');
 
             $table->foreign('fase_id')->references('id')->on('fases');

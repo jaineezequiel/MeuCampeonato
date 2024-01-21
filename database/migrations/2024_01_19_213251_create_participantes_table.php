@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('campeonato_id');
             $table->unsignedBigInteger('time_id');
-            $table->integer('pontuacao');
+            $table->integer('pontuacao')->default(0);
             $table->enum('eliminado' , [0, 1])->default(0);
             $table->timestamp('data_inscricao');
 
