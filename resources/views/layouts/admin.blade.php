@@ -8,13 +8,13 @@
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link active" href="#">
+                <a class="nav-link active" href="{{ route('campeonatos.create') }}">
                   <span data-feather="home"></span>
                   Novo campeonato
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('campeonatos.historico') }}">
                   <span data-feather="file"></span>
                   Histórico
                 </a>
@@ -23,7 +23,9 @@
           </div>
         </nav>
       </div>
-      @yield('main') 
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        @yield('main') 
+      </main>     
   </div>
   </div>
 </div>
