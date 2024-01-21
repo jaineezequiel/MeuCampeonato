@@ -61,6 +61,10 @@
                                     Login com Github
                                 </a>
 
+                                <a class="btn btn-primary" href="{{ route('social.login', ['provider' =>'facebook']) }}">
+                                    Login com Facebbok
+                                </a>
+
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
