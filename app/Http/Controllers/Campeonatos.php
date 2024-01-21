@@ -20,6 +20,12 @@ class Campeonatos extends Controller
     public function create()
     {
 
+        return View('create');
+    }
+
+    public function store()
+    {
+
         try {
 
             //validações
@@ -47,11 +53,6 @@ class Campeonatos extends Controller
             DB::rollBack();
         }
 
-        return View('create');
-    }
-
-    public function store()
-    {
        return to_route('campeonatos.historico');
     }
 }
