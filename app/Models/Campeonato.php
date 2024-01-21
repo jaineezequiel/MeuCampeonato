@@ -11,6 +11,11 @@ class Campeonato extends Model
 
     public function fases()
     {
-        
+        $fases = array(
+            1 => ['nome' => 'quartas de final)', 'numero_jogos' => 4],
+            2 => ['nome' => 'semifinais', 'numero_jogos' => 2],
+        );
+
+        return $fases;
     }
 }
