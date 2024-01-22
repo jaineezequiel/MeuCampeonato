@@ -18,8 +18,18 @@ class Campeonato extends Model
     public function fases()
     {
         $fases = array(
-            1 => ['nome' => 'quartas de final)', 'numero_jogos' => 4],
-            2 => ['nome' => 'semifinais', 'numero_jogos' => 2],
+            1 => [
+                'nome' => 'quartas de final',
+                'numero_jogos' => 4,
+                'eliminatoria' => 1,
+                'chave' => 'quartas-final'
+            ],
+            2 => [
+                'nome' => 'semifinais',
+                'numero_jogos' => 2,
+                'eliminatoria' => 0,
+                'chave' => 'semifinal'
+            ]
         );
 
         return $fases;
@@ -28,5 +38,9 @@ class Campeonato extends Model
     public function participantes(): HasMany
     {
         return $this->hasMany(Participante::class);
+    }
+
+    public function hankingCampeoes() : array {
+        
     }
 }

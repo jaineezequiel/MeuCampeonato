@@ -16,7 +16,9 @@ class CampeonatosController extends Controller
     public function index()
     {
         $campeonatos = Campeonato::all();
-        return response()->json($campeonatos, 200);    
+        return response()->json([
+            'campeonatos' => $campeonatos 
+        ], 200);    
     }
 
     public function store(Request $request)
@@ -25,15 +27,21 @@ class CampeonatosController extends Controller
         try {
             
             DB::beginTransaction();
+
+            $participantesRequest = $request->get('participantes'); 
+
+            if (count($participantesRequest) <> 8) {
+                return response()->json(
+                    ['error' => "O campeonato deve ter 8 participantes"], 400                
+                );
+            }
             
             // 1: criar campeonato
             $campeonato = new Campeonato();
             $campeonato->nome = $request->get('campeonato_nome');
             $campeonato->save();           
                     
-            // adicionar participantes ao campeonato
-            $participantesRequest = $request->get('participantes');                       
-            
+            // adicionar participantes ao campeonato                                             
             $participantes = [];
 
             foreach ($participantesRequest as $participante) {
@@ -41,20 +49,12 @@ class CampeonatosController extends Controller
             }            
 
             $campeonato->participantes()->saveMany($participantes);  
+
+            //$campeonato = Campeonato::find('21');
                             
-            // gerar jogos / Chamada phyton // validar numero de participantes de acordo com a fase
-            $jogadores = $participantes;
-
-            Jogo::gerar($jogadores);
+            // gerar jogos
+            Jogo::gerar($campeonato);
         
-            //$resultadoJogo = shell_exec("python teste.py");
-
-            // salvar pontuacoes e marcar eliminados
-
-            // salvar hanking de campeoes
-
-            // quebrar em várias funções
-
             DB::commit();
 
             return response()->json('OK', 200);
@@ -65,7 +65,6 @@ class CampeonatosController extends Controller
             );
 
             DB::rollBack();
-        }
-      
+        }      
     }
 }

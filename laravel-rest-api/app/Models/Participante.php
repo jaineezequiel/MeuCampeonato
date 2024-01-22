@@ -13,7 +13,7 @@ class Participante extends Model
     const CREATED_AT = null;
     const UPDATED_AT = null;
 
-    protected $fillable = ['time_id'];
+    protected $fillable = ['time_id', 'pontuacao', 'eliminado'];
 
     public function campeonato(): BelongsTo
     {

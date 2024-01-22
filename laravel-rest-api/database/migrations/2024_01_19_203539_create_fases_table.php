@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('nome');
             $table->integer('numero_jogos');
+            $table->enum('eliminatoria', [0,1]);
+            $table->string('chave');
         });
     }
 
