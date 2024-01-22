@@ -46,8 +46,12 @@ cd /laravel-rest-api/<br>
 php artisan migrate<br>
 php artisan serve
 
+http://localhost:8000/
+
 cd /react-app<br>
 npm start
+
+http://localhost:3000/
 
 
 <h2 id="routes">📍 API Endpoints</h2>
