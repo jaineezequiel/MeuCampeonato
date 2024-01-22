@@ -10,6 +10,11 @@ class Participante extends Model
 {
     use HasFactory;
 
+    const CREATED_AT = null;
+    const UPDATED_AT = null;
+
+    protected $fillable = ['time_id'];
+
     public function campeonato(): BelongsTo
     {
         return $this->belongsTo(Campeonato::class);

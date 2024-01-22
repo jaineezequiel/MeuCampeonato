@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('time_id');
             $table->integer('pontuacao')->default(0);
             $table->enum('eliminado' , [0, 1])->default(0);
-            $table->timestamp('data_inscricao');
+            $table->timestamp('data_inscricao')->current();
 
             $table->foreign('campeonato_id')->references('id')->on('campeonatos');
             $table->foreign('time_id')->references('id')->on('times');

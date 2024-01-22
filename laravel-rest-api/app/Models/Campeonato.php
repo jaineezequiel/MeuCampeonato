@@ -10,7 +10,10 @@ class Campeonato extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nome'];
+    const UPDATED_AT = null;
+    const CREATED_AT = null;
+
+    protected $fillable = ['nome', 'campeonato_nome', 'participantes'];
 
     public function fases()
     {

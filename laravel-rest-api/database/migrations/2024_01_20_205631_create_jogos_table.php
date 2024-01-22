@@ -16,9 +16,9 @@ return new class extends Migration
             $table->unsignedBigInteger('fase_id');
             $table->unsignedBigInteger('time_casa_id');
             $table->unsignedBigInteger('time_fora_id');
-            $table->integer('pontuacao_timecasa_id')->nullable();
-            $table->integer('pontuacao_timefora_id')->nullable();    
-            $table->timestamp('data_criacao');
+            $table->integer('pontuacao_timecasa')->nullable();
+            $table->integer('pontuacao_timefora')->nullable();    
+            $table->timestamp('data_criacao')->current();
 
             $table->foreign('fase_id')->references('id')->on('fases');
             $table->foreign('time_casa_id')->references('id')->on('participantes');

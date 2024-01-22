@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('campeonatos', function (Blueprint $table) {
             $table->id();
             $table->string('nome')->nullable();
-            $table->timestamp('data_criacao');
+            $table->timestamp('data_criacao')->current();
         });
     }
 

@@ -10,16 +10,36 @@ class Jogo extends Model
 {
     use HasFactory;
 
-    //protected $fillable = ['fase_id', 'time_casa_id', 'time_fora_id'];
+    const UPDATED_AT = null;
+    const CREATED_AT = null;
 
-    /*public function timeDaCasa(): BelongsTo
+    public static function gerar(Array $jogadores)
     {
-        return $this->belongsTo(Participante::class, 'time_casa_id', 'time_id');
+        //while (!empty($jogadores)) {
+
+            $selecionaTimesPartida = array_rand($jogadores, 2);            
+            $t1 = $selecionaTimesPartida[0];
+            $t2 = $selecionaTimesPartida[1];
+
+            //@TODO gerar resultado no python
+            $resultado[0] = '3';
+            $resultado[1] = '0';
+
+            $jogo = New Jogo();
+            $jogo->fase_id =NULL;
+            $jogo->time_casa_id = $jogadores[$t1]['id'];
+            $jogo->time_fora_id = $jogadores[$t2]['id'];
+            $jogo->pontuacao_timecasa = $resultado[0];
+            $jogo->pontuacao_timefora = $resultado[1];
+            $jogo->save();
+                    
+            unset($jogadores[$t1]);
+            unset($jogadores[$t2]);
+
+           // echo "<pre";
+           // dd($t1, $t2, $jogadores);
+
+            //Jogo::gerar($jogadores);
+        //}
     }
-
-    public function timeDeFora(): BelongsTo
-    {
-        return $this->belongsTo(Participante::class, 'time_fora_id', 'time_id');
-    }*/
-
 }
