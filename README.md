@@ -41,12 +41,12 @@ uma rotina em Python, como detalhado no tópico a seguir.
 <h2 id="started">🚀 Getting started</h2>
 
 git clone https://github.com/jaineezequiel/MeuCampeonato.git
-
-cd /laravel-rest-api/
-php artisan migrate
+<br>
+cd /laravel-rest-api/<br>
+php artisan migrate<br>
 php artisan serve
 
-cd /react-app
+cd /react-app<br>
 npm start
 
 
