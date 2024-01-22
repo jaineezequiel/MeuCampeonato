@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Fase extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['nome', 'numero_jogos'];
 }

@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Campeonato extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['nome'];
 
     public function fases()
     {
@@ -17,5 +20,10 @@ class Campeonato extends Model
         );
 
         return $fases;
+    }
+
+    public function participantes(): HasMany
+    {
+        return $this->hasMany(Participante::class);
     }
 }

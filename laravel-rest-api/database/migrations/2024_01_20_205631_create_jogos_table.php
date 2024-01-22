@@ -14,15 +14,15 @@ return new class extends Migration
         Schema::create('jogos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('fase_id');
-            $table->unsignedBigInteger('primeiro_time_id');
-            $table->unsignedBigInteger('segundo_time_id');
-            $table->integer('resultado_primeiro_time')->nullable();
-            $table->integer('resultado_segundo_time')->nullable();    
+            $table->unsignedBigInteger('time_casa_id');
+            $table->unsignedBigInteger('time_fora_id');
+            $table->integer('pontuacao_timecasa_id')->nullable();
+            $table->integer('pontuacao_timefora_id')->nullable();    
             $table->timestamp('data_criacao');
 
             $table->foreign('fase_id')->references('id')->on('fases');
-            $table->foreign('primeiro_time_id')->references('id')->on('participantes');
-            $table->foreign('segundo_time_id')->references('id')->on('participantes');
+            $table->foreign('time_casa_id')->references('id')->on('participantes');
+            $table->foreign('time_fora_id')->references('id')->on('participantes');
         });
     }
 

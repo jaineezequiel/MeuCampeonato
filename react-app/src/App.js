@@ -1,10 +1,18 @@
 import './App.css';
+import {Route, BrowserRouter, Routes} from "react-router-dom";
+import SignIn from "./SignIn";
+import ProviderCallback from "./ProviderCallback";
 
 function App() {
   return (
-    <div className="App">
-     
-    </div>
+      <BrowserRouter>
+          <Routes>
+              <Route path="/" element={<SignIn />}></Route>
+              <Route path="/auth/github" element={<ProviderCallback />}></Route>
+          </Routes>
+
+          Meu campeonato
+      </BrowserRouter>
   );
 }
 
