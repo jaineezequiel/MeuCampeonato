@@ -40,9 +40,19 @@ uma rotina em Python, como detalhado no tópico a seguir.
 
 <h2 id="started">🚀 Getting started</h2>
 
-<h3>Prerequisites</h3>
+git clone https://github.com/jaineezequiel/MeuCampeonato.git
+<br>
+cd /laravel-rest-api/<br>
+php artisan migrate<br>
+php artisan serve
 
-<h3>Cloning</h3>
+http://localhost:8000/
+
+cd /react-app<br>
+npm start
+
+http://localhost:3000/
+
 
 <h2 id="routes">📍 API Endpoints</h2>
 
