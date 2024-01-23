@@ -1,0 +1,3 @@
+[{"id":1, "nome":"Quartas de final", "numero_jogos":4, "eliminatoria":1, "chave":"quartas-final"},
+ {"id":2, "nome":"Semifinais", "numero_jogos":2, "eliminatoria":0, "chave":"semifinal"},
+ {"id":3, "nome":"Classificatoria", "numero_jogos":1, "eliminatoria":0, "chave":"classificatoria"}]

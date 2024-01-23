@@ -9,5 +9,8 @@ class Fase extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nome', 'numero_jogos'];
+    const UPDATED_AT = null;
+    const CREATED_AT = null;
+
+    protected $fillable = ['nome', 'numero_jogos', 'eliminatoria', 'chave'];
 }

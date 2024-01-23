@@ -16,9 +16,9 @@ class Jogo extends Model
 
     public static function gerar($campeonato)
     {       
-        
-        $faseQuartasFinal = Fase::where('chave' , 'quartas-final');
-        $faseSemifinais = Fase::where('chave' , 'semifinal');
+        $faseQuartasFinal = Fase::where('chave', '=', 'quartas-final')->first();
+        $faseSemifinais = Fase::where('chave', '=', 'semifinal')->first();
+        $faseClassificatoria = Fase::where('chave', '=', 'classificatoria')->first();
 
         $participantes = Jogo::getTimesAptos($campeonato->id);
         Jogo::gerarRodadaDeJogos($participantes, $faseQuartasFinal);
@@ -27,11 +27,13 @@ class Jogo extends Model
         $participantes = Jogo::getTimesAptos($campeonato->id);
         Jogo::gerarRodadaDeJogos($participantes, $faseSemifinais);
         
-        // terceiro lugar
+        // define Hanking
+        //$participantes = Jogo::getTimesAptos($campeonato->id);
+
+        //Jogo::gerarRodadaDeJogos($participantes, $faseClassificatoria);
 
         // primeiro e segundo lugar
-
-        
+        //Jogo::gerarRodadaDeJogos($participantes, $faseClassificatoria);    
     }
 
     public static function gerarRodadaDeJogos($participantes, $fase) 
@@ -55,7 +57,11 @@ class Jogo extends Model
             unset($participantes[$t1]);
             unset($participantes[$t2]);
 
-            Jogo::atualizaPontuacao($jogo);           
+            Jogo::atualizaPontuacao($jogo);
+
+            if ($fase->eliminatoria) {
+                Jogo::definiEliminados($jogo, $resultados);           
+            }
         }          
     }
 
@@ -70,36 +76,30 @@ class Jogo extends Model
 
     public static function atualizaPontuacao($jogo)
     {
-        // salvar pontuacoes
         $timeCasa = Participante::find($jogo->time_casa_id);
         $timeCasa->pontuacao += $jogo->pontuacao_timecasa;            
+        $timeCasa->save();
 
         $timeFora = Participante::find($jogo->time_fora_id);
-        $timeFora->pontuacao += $jogo->pontuacao_timecasa;
-
-        $fase = $jogo->fase;
-
-        if ($fase->eliminatoria) {
-            if ($timeCasa->pontuacao < $timeFora->pontuacao) {
-                $timeCasa->eliminado = '1';
-            } elseif ($timeCasa->pontuacao == $timeFora->pontuacao) {
-                $timeFora->eliminado = '1'; //  somente para teste        
-               // criterios de desempate
-            } else{
-                $timeFora->eliminado = '1';
-            }
-        }
-
-        $timeCasa->save();
-        $timeFora->save();
-
-        if ($fase->chave == 'semifinal') {
-            Jogo::hankingVencedores();
-        }
+        $timeFora->pontuacao += $jogo->pontuacao_timefora;        
+        $timeFora->save();        
     }
 
-    public static function definiEliminados($timeCasa, $timeFora) {
-        
+    public static function definiEliminados($jogo, $resultados) 
+    {            
+        $timeCasa = Participante::find($jogo->time_casa_id);    
+        $timeFora = Participante::find($jogo->time_fora_id);  
+
+        $gols_time_casa = $resultados[0];
+        $gols_time_fora = $resultados[1];
+
+        if ($gols_time_casa < $gols_time_fora) {        
+            $timeCasa->eliminado = '1'; 
+            $timeCasa->save();
+        } else {
+            $timeFora->eliminado = '1';
+            $timeFora->save();
+        }                               
     }
 
     public static function getResultadoRandom() : array

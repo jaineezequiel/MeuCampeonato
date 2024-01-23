@@ -39,8 +39,4 @@ class Campeonato extends Model
     {
         return $this->hasMany(Participante::class);
     }
-
-    public function hankingCampeoes() : array {
-        
-    }
 }

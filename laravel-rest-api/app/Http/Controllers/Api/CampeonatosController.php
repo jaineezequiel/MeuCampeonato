@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CampeonatoRequest;
+use App\Http\Resources\V1\CampeonatosResource;
 use App\Models\Campeonato;
 use App\Models\Jogo;
 use App\Models\Participante;
 use Illuminate\Http\Request;
-use PhpParser\Node\Stmt\TryCatch;
 use Illuminate\Support\Facades\DB;
 
 class CampeonatosController extends Controller
@@ -16,9 +15,8 @@ class CampeonatosController extends Controller
     public function index()
     {
         $campeonatos = Campeonato::all();
-        return response()->json([
-            'campeonatos' => $campeonatos 
-        ], 200);    
+
+        return CampeonatosResource::collection($campeonatos);   
     }
 
     public function store(Request $request)
@@ -26,7 +24,7 @@ class CampeonatosController extends Controller
 
         try {
             
-            DB::beginTransaction();
+           /* DB::beginTransaction();
 
             $participantesRequest = $request->get('participantes'); 
 
@@ -48,14 +46,14 @@ class CampeonatosController extends Controller
                 $participantes[] = new Participante($participante);
             }            
 
-            $campeonato->participantes()->saveMany($participantes);  
+            $campeonato->participantes()->saveMany($participantes);  */
 
-            //$campeonato = Campeonato::find('21');
+            $campeonato = Campeonato::find('21');
                             
             // gerar jogos
             Jogo::gerar($campeonato);
         
-            DB::commit();
+            //DB::commit();
 
             return response()->json('OK', 200);
 

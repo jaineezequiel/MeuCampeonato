@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CampeonatosController;
+use App\Http\Controllers\Api\FasesController;
 use App\Http\Controllers\Api\TimesController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,5 +16,8 @@ Route::group(['prefix' =>  'v1'], function(){
     ->except(['update', 'destroy']);
 
     Route::apiResource('times', TimesController::class)
+    ->only(['index', 'store']);
+
+    Route::apiResource('fases', FasesController::class)
     ->only(['index', 'store']);
 });
