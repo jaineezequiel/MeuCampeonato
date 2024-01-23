@@ -2,12 +2,11 @@
 
 namespace App\Http\Resources\V1;
 
-use App\Models\Jogo;
 use App\Models\Participante;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CampeonatosResource extends JsonResource
+class JogosResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,10 +16,11 @@ class CampeonatosResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'nome' => $this->nome,
-            'jogos' => JogosResource::collection($this->jogos),
-            'finalistas' => ParticipantesResource::collection($this->getFinalistas())
+            "fase_id" => $this->fase_id,
+            "time_casa_id" =>  $this->time_casa_id,
+            "pontuacao_timecasa"=>  $this->pontuacao_timecasa,
+            "time_fora_id"=>  $this->time_fora_id,
+            "pontuacao_timefora"=>  $this->pontuacao_timefora,
         ];
     }
 }

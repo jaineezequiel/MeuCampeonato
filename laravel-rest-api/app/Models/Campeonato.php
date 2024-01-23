@@ -15,28 +15,22 @@ class Campeonato extends Model
 
     protected $fillable = ['nome', 'campeonato_nome', 'participantes'];
 
-    public function fases()
-    {
-        $fases = array(
-            1 => [
-                'nome' => 'quartas de final',
-                'numero_jogos' => 4,
-                'eliminatoria' => 1,
-                'chave' => 'quartas-final'
-            ],
-            2 => [
-                'nome' => 'semifinais',
-                'numero_jogos' => 2,
-                'eliminatoria' => 0,
-                'chave' => 'semifinal'
-            ]
-        );
-
-        return $fases;
-    }
-
     public function participantes(): HasMany
     {
         return $this->hasMany(Participante::class);
+    }
+
+    public function jogos(): HasMany
+    {
+        return $this->hasMany(Jogo::class);
+    }
+
+    public function getFinalistas() {
+
+        $finalistas = Participante::where('campeonato_id', '=', $this->id)
+        ->where('classificacao', '<>', null)
+        ->get();
+
+        return $finalistas;
     }
 }
