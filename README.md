@@ -73,6 +73,13 @@ arquivos com endpoints e exemplos de requisições
 <h2> Frontend</h2>
 
 - Fiz uma parte de Frontend com Boostrap/Vite e login social com github e facebook <br>
+
+Adicionar as credenciais da api para login social ao arquivo .env <br>
+GITHUB_CLIENT_ID=<br>
+GITHUB_CLIENT_SECRET=<br>
+FACEBOOK_CLIENT_ID=<br>
+FACEBOOK_CLIENT_SECRET=<br>
+
 na pasta: cd /laravel-rest-api/<br>
 rodar o comando: npm run dev<br>
 - acessar a url pelo navegador:<br>
