@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\V1;
 
+use App\Models\Time;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -15,7 +16,7 @@ class ParticipantesResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            "time_id" => $this->time_id,
+            "time" =>  Time::whereId($this->time_id)->first()->nome,
             "pontuacao" => $this->pontuacao,
             "classificacao" => $this->classificacao
         ];
