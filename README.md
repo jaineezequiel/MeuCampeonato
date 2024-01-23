@@ -42,17 +42,38 @@ uma rotina em Python, como detalhado no tópico a seguir.
 
 git clone https://github.com/jaineezequiel/MeuCampeonato.git
 <br>
+
+<h2> Api Backend</h2>
+
+- pasta onde fica a api backend:
 cd /laravel-rest-api/<br>
+
+- gerar bd e tabelas:
 php artisan migrate<br>
+
+- preencher tabela de fases:
+file /fill_table_fases.json
+
+- inicializar o servidor: 
 php artisan serve
 
+- acessar a url pelo navegador:
 http://localhost:8000/
 
+<h2 id="routes">📍 API Endpoints</h2>
+
+arquivos com endpoints e exemplos de requisições
+/insomnia/Insomnia_2024-01-22.json
+
+- http://localhost:8000/api/v1/campeonatos
+- http://localhost:8000/api/v1/times
+- http://localhost:8000/api/v1/fases
+- (index e store)
+
+<h2> Frontend (Não finalizado)</h2>
 cd /react-app<br>
 npm start
-
 http://localhost:3000/
 
 
-<h2 id="routes">📍 API Endpoints</h2>
 
