@@ -70,10 +70,20 @@ arquivos com endpoints e exemplos de requisições
 - http://localhost:8000/api/v1/fases
 - (index e store)
 
-<h2> Frontend (Não finalizado)</h2>
+<h2> Frontend</h2>
+
+- Fiz uma parte de Frontend com Boostrap/Vite e login social com github e facebook <br>
+na pasta: cd /laravel-rest-api/<br>
+rodar o comando: npm run dev<br>
+- acessar a url pelo navegador:<br>
+http://localhost:8000/
+
+- Tentei inicializar um projeto separado do react para integrar com a api (não finalizado)<br>
 cd /react-app<br>
-npm start
-http://localhost:3000/
+npm start<br>
+
+acessar a url pelo navegador:<br>
+http://localhost:3000/<br>
 
 
 
