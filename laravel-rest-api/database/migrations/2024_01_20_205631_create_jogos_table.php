@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('jogos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('fase_id');
+            $table->unsignedBigInteger('campeonato_id');
             $table->unsignedBigInteger('time_casa_id');
             $table->unsignedBigInteger('time_fora_id');
             $table->integer('pontuacao_timecasa')->nullable();
@@ -21,6 +22,7 @@ return new class extends Migration
             $table->timestamp('data_criacao')->current();
 
             $table->foreign('fase_id')->references('id')->on('fases');
+            $table->foreign('campeonato_id')->references('id')->on('campeonato');
             $table->foreign('time_casa_id')->references('id')->on('participantes');
             $table->foreign('time_fora_id')->references('id')->on('participantes');
         });

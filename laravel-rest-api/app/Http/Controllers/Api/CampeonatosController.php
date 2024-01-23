@@ -7,6 +7,7 @@ use App\Http\Resources\V1\CampeonatosResource;
 use App\Models\Campeonato;
 use App\Models\Jogo;
 use App\Models\Participante;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -24,7 +25,7 @@ class CampeonatosController extends Controller
 
         try {
             
-           /* DB::beginTransaction();
+            DB::beginTransaction();
 
             $participantesRequest = $request->get('participantes'); 
 
@@ -46,14 +47,12 @@ class CampeonatosController extends Controller
                 $participantes[] = new Participante($participante);
             }            
 
-            $campeonato->participantes()->saveMany($participantes);  */
-
-            $campeonato = Campeonato::find('21');
-                            
+            $campeonato->participantes()->saveMany($participantes); 
+                         
             // gerar jogos
             Jogo::gerar($campeonato);
         
-            //DB::commit();
+            DB::commit();
 
             return response()->json('OK', 200);
 

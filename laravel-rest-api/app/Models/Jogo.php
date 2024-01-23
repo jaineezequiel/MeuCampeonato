@@ -6,6 +6,8 @@ use Illuminate\Database\Console\Migrations\StatusCommand;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Query\JoinClause;
+use Illuminate\Support\Facades\DB;
 
 class Jogo extends Model
 {
@@ -20,23 +22,22 @@ class Jogo extends Model
         $faseSemifinais = Fase::where('chave', '=', 'semifinal')->first();
         $faseClassificatoria = Fase::where('chave', '=', 'classificatoria')->first();
 
+        // quartas de final
         $participantes = Jogo::getTimesAptos($campeonato->id);
-        Jogo::gerarRodadaDeJogos($participantes, $faseQuartasFinal);
+        Jogo::gerarRodadaDeJogos($campeonato->id, $participantes, $faseQuartasFinal);
 
         // semifinais
         $participantes = Jogo::getTimesAptos($campeonato->id);
-        Jogo::gerarRodadaDeJogos($participantes, $faseSemifinais);
+        Jogo::gerarRodadaDeJogos($campeonato->id, $participantes, $faseSemifinais);
         
-        // define Hanking
-        //$participantes = Jogo::getTimesAptos($campeonato->id);
+        // disputa classificatoria
+        Jogo::disputaClassificatoria($campeonato->id);
 
-        //Jogo::gerarRodadaDeJogos($participantes, $faseClassificatoria);
-
-        // primeiro e segundo lugar
-        //Jogo::gerarRodadaDeJogos($participantes, $faseClassificatoria);    
+        //define hanking
+        Jogo::defineHanking($campeonato->id);
     }
 
-    public static function gerarRodadaDeJogos($participantes, $fase) 
+    public static function gerarRodadaDeJogos($campeonatoId, $participantes, $fase) 
     {               
         for ($i = 1; $i<=  $fase->numero_jogos; $i++) {
 
@@ -48,6 +49,7 @@ class Jogo extends Model
 
             $jogo = New Jogo();
             $jogo->fase_id = $fase->id;
+            $jogo->campeonato_id = $campeonatoId;
             $jogo->time_casa_id = $participantes[$t1]['id'];
             $jogo->time_fora_id = $participantes[$t2]['id'];
             $jogo->pontuacao_timecasa = $resultados[0];
@@ -72,6 +74,62 @@ class Jogo extends Model
         ->get()->toArray();
 
         return $participantes;
+    }
+
+    public static function disputaClassificatoria($campeonatoId) {
+
+        $faseSemifinais = Fase::where('chave', '=', 'semifinal')->first();
+        $faseClassificatoria = Fase::where('chave', '=', 'classificatoria')->first();
+
+        $jogosSemifinal = Jogo::where('fase_id', '=', $faseSemifinais->id)
+            ->where('campeonato_id', '=', $campeonatoId)
+            ->get();
+
+        $disputaTerceiroLugar = [];
+        $disputaPrimeiroLugar = [];
+
+        foreach ($jogosSemifinal as $jogo) {
+            if ($jogo->pontuacao_time_casa <= $jogo->pontuacao_time_fora) {
+                $disputaTerceiroLugar[] = Participante::where('id', $jogo->time_casa_id)->first();
+                $disputaPrimeiroLugar[] = Participante::where('id',$jogo->time_fora_id)->first();
+            } else {
+                $disputaTerceiroLugar[] = Participante::where('id',$jogo->time_fora_id)->first();
+                $disputaPrimeiroLugar[] = Participante::where('id',$jogo->time_casa_id)->first();
+            }
+        }
+
+        Jogo::gerarRodadaDeJogos($campeonatoId, $disputaTerceiroLugar, $faseClassificatoria);
+        Jogo::gerarRodadaDeJogos($campeonatoId, $disputaPrimeiroLugar, $faseClassificatoria);
+    }
+
+    public static function defineHanking($campeonatoId) {
+
+        $faseClassificatoria = Fase::where('chave', '=', 'classificatoria')->first();
+
+        $finalistas = DB::table('participantes')
+            ->join('jogos', function (JoinClause $join) {
+            $join->on('jogos.time_casa_id', '=', 'participantes.id');
+            $join->orOn('jogos.time_fora_id', '=', 'participantes.id');
+
+        })
+        ->where('jogos.fase_id',  '=', $faseClassificatoria->id)
+        ->where('participantes.campeonato_id', '=', $campeonatoId)
+        ->orderBy('participantes.pontuacao', 'DESC')
+        ->limit(3)
+        ->select('participantes.id')
+        ->get();
+
+        $primeiroLugar = Participante::where('id', '=', $finalistas[0]->id)->first();
+        $primeiroLugar->classificacao = 1;
+        $primeiroLugar->save();
+
+        $segundoLugar = Participante::where('id', '=', $finalistas[1]->id)->first();
+        $segundoLugar->classificacao = 2;
+        $segundoLugar->save();
+
+        $terceiroLugar = Participante::where('id', '=', $finalistas[2]->id)->first();
+        $terceiroLugar->classificacao = 3;
+        $terceiroLugar->save();
     }
 
     public static function atualizaPontuacao($jogo)
@@ -109,10 +167,5 @@ class Jogo extends Model
         $resultados[1] = random_int(0,8);
 
         return $resultados;
-    }
-
-    public static function hankingVencedores() 
-    {
-
     }
 }
