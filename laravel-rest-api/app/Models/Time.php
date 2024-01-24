@@ -9,5 +9,8 @@ class Time extends Model
 {
     use HasFactory;
 
+    const UPDATED_AT = null;
+    //const CREATED_AT = null;
+
     protected $fillable = ['nome'];
 }
