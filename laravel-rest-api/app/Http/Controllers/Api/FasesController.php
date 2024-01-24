@@ -17,6 +17,6 @@ class FasesController extends Controller
     public function store(Request $request)
     {
         Fase::create($request->all());
-        return response()->json('OK', 200);    
+        return response()->json('OK', 201);    
     }
 }

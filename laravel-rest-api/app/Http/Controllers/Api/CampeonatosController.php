@@ -15,8 +15,7 @@ class CampeonatosController extends Controller
 {
     public function index()
     {
-        $campeonatos = Campeonato::all();
-
+        $campeonatos = Campeonato::with(['participantes', 'jogos'])->get();
         return CampeonatosResource::collection($campeonatos);   
     }
 
@@ -54,7 +53,8 @@ class CampeonatosController extends Controller
         
             DB::commit();
 
-            return response()->json('OK', 200);
+            $campeonatos = Campeonato::with(['participantes', 'jogos'])->get();
+            return response()->json(CampeonatosResource::collection($campeonatos), 201);
 
         } catch (\Throwable $th) {
             return response()->json(

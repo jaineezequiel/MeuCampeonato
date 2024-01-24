@@ -17,6 +17,6 @@ class TimesController extends Controller
     public function store(Request $request)
     {
         Time::create($request->all());
-        return response()->json('OK', 200);    
+        return response()->json('OK', 201);    
     }
 }
