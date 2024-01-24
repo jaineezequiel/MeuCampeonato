@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('times', function (Blueprint $table) {
             $table->id();
             $table->string('nome')->unique();
-            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('data_criacao')->useCurrent();
         });
     }
 

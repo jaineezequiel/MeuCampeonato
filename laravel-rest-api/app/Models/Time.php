@@ -10,7 +10,7 @@ class Time extends Model
     use HasFactory;
 
     const UPDATED_AT = null;
-    //const CREATED_AT = null;
+    const CREATED_AT = 'data_criacao';
 
     protected $fillable = ['nome'];
 }

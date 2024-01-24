@@ -22,16 +22,10 @@ class Jogo extends Model
         return $this->belongsTo(Campeonato::class);
     }
 
-    public function fase(): BelongsTo
-    {
-        return $this->belongsTo(Fase::class);
-    }
-
     public static function gerar($campeonato)
     {       
         $faseQuartasFinal = Fase::where('chave', '=', 'quartas-final')->first();
         $faseSemifinais = Fase::where('chave', '=', 'semifinal')->first();
-        $faseClassificatoria = Fase::where('chave', '=', 'classificatoria')->first();
 
         // quartas de final
         $participantes = Jogo::getTimesAptos($campeonato->id);
@@ -164,11 +158,20 @@ class Jogo extends Model
 
         if ($gols_time_casa < $gols_time_fora) {        
             $timeCasa->eliminado = '1'; 
-            $timeCasa->save();
+
+        } else if($gols_time_casa == $gols_time_fora) {
+            if ($timeCasa->data_criacao < $timeFora->data_criacao) {
+                $timeFora->eliminado = '1';
+            } else {
+                $timeCasa->eliminado = '1';
+            }
         } else {
             $timeFora->eliminado = '1';
-            $timeFora->save();
-        }                               
+        }                 
+        
+        $timeCasa->save();
+        $timeFora->save();
+                                  
     }
 
     public static function getResultadoRandom() : array
