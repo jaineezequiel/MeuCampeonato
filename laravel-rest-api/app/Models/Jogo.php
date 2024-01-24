@@ -15,7 +15,17 @@ class Jogo extends Model
     use HasFactory;
 
     const UPDATED_AT = null;
-    const CREATED_AT = null;
+    const CREATED_AT = 'data_criacao';
+
+    public function campeonato(): BelongsTo
+    {
+        return $this->belongsTo(Campeonato::class);
+    }
+
+    public function fase(): BelongsTo
+    {
+        return $this->belongsTo(Fase::class);
+    }
 
     public static function gerar($campeonato)
     {       

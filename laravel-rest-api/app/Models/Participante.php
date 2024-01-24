@@ -10,7 +10,7 @@ class Participante extends Model
 {
     use HasFactory;
 
-    const CREATED_AT = null;
+    const CREATED_AT = 'data_inscricao';
     const UPDATED_AT = null;
 
     protected $fillable = ['time_id', 'pontuacao', 'eliminado'];
