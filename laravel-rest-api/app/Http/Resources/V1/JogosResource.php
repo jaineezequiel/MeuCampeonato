@@ -18,7 +18,7 @@ class JogosResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            "fase_id" => $this->fase_id,
+            "fase" => Fase::whereId($this->fase_id)->first()->nome,
             "time_casa_id" =>  $this->time_casa_id,
             "pontuacao_timecasa"=>  $this->pontuacao_timecasa,
             "time_fora_id"=>  $this->time_fora_id,

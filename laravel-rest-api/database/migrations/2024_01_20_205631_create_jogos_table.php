@@ -22,7 +22,7 @@ return new class extends Migration
             $table->timestamp('data_criacao')->current();
 
             $table->foreign('fase_id')->references('id')->on('fases');
-            $table->foreign('campeonato_id')->references('id')->on('campeonato');
+            $table->foreign('campeonato_id')->references('id')->on('campeonatos');
             $table->foreign('time_casa_id')->references('id')->on('participantes');
             $table->foreign('time_fora_id')->references('id')->on('participantes');
         });
