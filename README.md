@@ -51,8 +51,8 @@ cd /laravel-rest-api/<br>
 - gerar bd e tabelas:
 php artisan migrate<br>
 
-- preencher tabela de fases:
-file /fill_table_fases.json
+- preencher tabela de fases e times:
+com os arquivos que estão em /db/
 
 - inicializar o servidor: 
 php artisan serve
@@ -62,13 +62,33 @@ http://localhost:8000/
 
 <h2 id="routes">📍 API Endpoints</h2>
 
-arquivos com endpoints e exemplos de requisições
+- arquivos com endpoints e exemplos de requisições
 /insomnia/Insomnia_2024-01-22.json
+
+- para gerar o campeonato enviar a requisição post para a rota <br/>
+http://localhost:8000/api/v1/campeonatos<br/>
+
+Exemplo de requisicao:<br/>
+<code>{
+	"campeonato_nome" : "#1",
+	"participantes" : [
+		{"time_id" : 1},
+		{"time_id" : 2},
+		{"time_id" : 3},
+		{"time_id" : 4},
+		{"time_id" : 5},
+		{"time_id" : 6},
+		{"time_id" : 7},
+		{"time_id" : 8}
+	]}
+</code>
+
+Outras rotas:<br/>
 
 - http://localhost:8000/api/v1/campeonatos
 - http://localhost:8000/api/v1/times
 - http://localhost:8000/api/v1/fases
-- (index e store)
+(GET E POST)
 
 <h2> Frontend</h2>
 
