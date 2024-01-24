@@ -1,0 +1,4 @@
+id,nome,numero_jogos,eliminatoria,chave
+1,"Quartas de final",4,1,quartas-final
+2,Semifinais,2,0,semifinal
+3,Classificatoria,1,0,classificatoria
