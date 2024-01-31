@@ -48,8 +48,7 @@ class CampeonatosController extends Controller
 
             $campeonato->participantes()->saveMany($participantes); 
                          
-            // gerar jogos
-            Jogo::gerar($campeonato);
+            Campeonato::gerar($campeonato);
         
             DB::commit();
 
