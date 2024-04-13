@@ -112,7 +112,3 @@ npm start<br>
 acessar a url pelo navegador:<br>
 http://localhost:3000/<br>
 
-<h2> Considerações finais </h2>
-
-- Com um pouco mais de tempo conseguiria entregar o projeto completo :)
-- Agradeço a oportunidade
